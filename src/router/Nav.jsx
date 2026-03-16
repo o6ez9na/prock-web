@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { useColorModeValue } from "../components/ui/color-mode";
@@ -7,6 +7,7 @@ import {
   TbSitemap,
   TbArrowsMaximize,
   TbTopologyStar3,
+  TbHome,
 } from "react-icons/tb";
 
 import CustomTooltip from "../components/ui/custom-tooltip";
@@ -17,7 +18,7 @@ export default function Nav() {
   return (
     <Flex position="fixed" bottom="0" left="50%" transform="translateX(-50%)">
       <Flex
-        h="80px"
+        h="60px"
         w="auto"
         p="20px"
         borderRadius={"10px 10px 0 0"}
@@ -29,6 +30,19 @@ export default function Nav() {
         borderColor={borderColor}
         borderBottomWidth={0}
       >
+        <CustomTooltip
+          header={"Дашборд"}
+          body={
+            "Здесь вы сможете увидеть потребляемый трафик, график нагрузки и многое другое."
+          }
+        >
+          <Link to="/dashboard">
+            <TbHome size="30px" />
+          </Link>
+        </CustomTooltip>
+
+        <Box h="30px" w="3px" bg={borderColor} borderRadius={"10px"} />
+
         <CustomTooltip
           header="Пользователи"
           body="В данной группе находится список пользователей и их настройки."
