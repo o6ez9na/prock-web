@@ -6,14 +6,19 @@ import {
   Button,
   Stack,
   Text,
-  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import { useColorModeValue } from "../ui/color-mode";
-
+import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
+import APIService from "../../api/API";
+import { toaster } from "../ui/toaster";
 
 export default function AuthPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const pageBg = useColorModeValue("gray.50", "black");
   const textColor = useColorModeValue("gray.800", "white");
   const subTextColor = useColorModeValue("gray.500", "gray.400");
@@ -25,6 +30,20 @@ export default function AuthPage() {
   const inputBorder = useColorModeValue("gray.200", "gray.600");
   const inputFocusBorder = useColorModeValue("gray.300", "gray.500");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      return await APIService.auth({
+        username,
+        password,
+      });
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <Flex minH="100vh" align="center" justify="center" bg={pageBg} p={4}>
       <Box p={8} rounded="2xl" w="full" maxW="420px" borderWidth="2px">
@@ -76,6 +95,7 @@ export default function AuthPage() {
                   size="lg"
                   borderRadius="lg"
                   pl={10}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </Box>
             </Stack>
@@ -109,6 +129,8 @@ export default function AuthPage() {
                 <Input
                   type="password"
                   placeholder="Ваш пароль"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   border="1px solid"
                   borderColor={inputBorder}
                   borderWidth="1px"
@@ -133,6 +155,7 @@ export default function AuthPage() {
               _active={{ transform: "translateY(0)" }}
               transition="all 0.2s"
               mt={2}
+              onClick={handleSubmit}
             >
               Войти
             </Button>

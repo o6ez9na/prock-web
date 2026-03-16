@@ -1,0 +1,89 @@
+import axios from "axios";
+import { toaster } from "../components/ui/toaster";
+
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_HOST,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+API.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Не трогаем /auth/sign-in и /auth/sign-up
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/sign-in") &&
+      !originalRequest.url.includes("/auth/sign-up")
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await API.post("/auth/refresh/", {
+          refresh: localStorage.getItem("refreshToken"),
+        });
+        localStorage.setItem("authToken", response.data.access);
+
+        originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+        return API(originalRequest);
+      } catch (err) {
+        console.error("Ошибка обновления токена:", err);
+        localStorage.removeItem("authToken");
+        return Promise.reject(err);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
+
+class APIService {
+  async auth(config = { username, password }) {
+    try {
+      const response = await API.post("/auth/sign-in", {
+        email: config.username,
+        password: config.password,
+      });
+
+      if (response.status == 200) {
+        toaster.create({
+          title: "Успешный вход!",
+          description: "Вы успешно вошли в свой аккаунт.",
+          type: "success",
+          closable: true,
+        });
+      }
+    } catch (error) {
+      if (error.status == 401) {
+        toaster.create({
+          title: "Ошибка входа!",
+          description: "Неверное имя пользователя или пароль.",
+          type: "error",
+          closable: true,
+        });
+      }
+    }
+  }
+
+  async getMe(config = {}) {
+    return await API.get("/users/me/", config);
+  }
+}
+
+export default APIService = new APIService();
