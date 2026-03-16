@@ -12,7 +12,6 @@ import { useColorModeValue } from "../ui/color-mode";
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import APIService from "../../api/API";
-import { toaster } from "../ui/toaster";
 
 export default function AuthPage() {
   const [username, setUsername] = useState("");
