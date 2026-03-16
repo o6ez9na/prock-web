@@ -1,8 +1,9 @@
-import RoutingPage from "../page/RoutingPage";
-import Nav from "../../router/Nav";
+// components/layouts/AppLayout.jsx
+import { Outlet } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
+import Nav from "../../router/Nav";
 
-export default function RoutingLayout() {
+export default function AppLayout() {
   return (
     <>
       <Nav />
@@ -11,8 +12,9 @@ export default function RoutingLayout() {
         h={"100vh"}
         justifyContent={"center"}
         alignItems={"center"}
+        overflow={"auto"}
       >
-        <RoutingPage />
+        <Outlet />
       </Flex>
     </>
   );
