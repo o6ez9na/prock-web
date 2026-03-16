@@ -69,6 +69,7 @@ class APIService {
           closable: true,
         });
       }
+      return response;
     } catch (error) {
       if (error.status == 401) {
         toaster.create({

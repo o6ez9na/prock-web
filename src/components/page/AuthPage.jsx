@@ -10,10 +10,14 @@ import {
 
 import { useColorModeValue } from "../ui/color-mode";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
+
 import APIService from "../../api/API";
 
 export default function AuthPage() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +38,13 @@ export default function AuthPage() {
     setIsLoading(true);
 
     try {
-      return await APIService.auth({
+      const response = await APIService.auth({
         username,
         password,
       });
+      if (response.status == 200) {
+        navigate("/dashboard");
+      }
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -143,7 +150,6 @@ export default function AuthPage() {
                 />
               </Box>
             </Stack>
-
             <Button
               bg={buttonBg}
               color={buttonColor}
@@ -153,8 +159,8 @@ export default function AuthPage() {
               _hover={{ bg: buttonHoverBg }}
               _active={{ transform: "translateY(0)" }}
               transition="all 0.2s"
-              mt={2}
               onClick={handleSubmit}
+              w={"100%"}
             >
               Войти
             </Button>
