@@ -30,9 +30,6 @@ export default function AuthPage() {
   const buttonColor = useColorModeValue("white", "black");
   const buttonHoverBg = useColorModeValue("gray.800", "gray.200");
 
-  const inputBorder = useColorModeValue("gray.200", "gray.600");
-  const inputFocusBorder = useColorModeValue("gray.300", "gray.500");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -55,13 +52,20 @@ export default function AuthPage() {
   };
   return (
     <Flex minH="100vh" align="center" justify="center" bg={pageBg} p={4}>
-      <Box p={8} rounded="2xl" w="full" maxW="420px" borderWidth="2px">
+      <Box
+        p={8}
+        rounded="2xl"
+        w="full"
+        maxW="420px"
+        borderWidth="2px"
+        borderColor={textColor}
+      >
         <Stack gap={6}>
           <Stack gap={2} textAlign="center">
             <Heading size="lg" color={textColor} fontWeight="bold">
               С возвращением!
             </Heading>
-            <Text color={subTextColor} fontSize="sm">
+            <Text color={textColor} fontSize="sm">
               Введите данные для входа в аккаунт
             </Text>
           </Stack>
@@ -82,7 +86,7 @@ export default function AuthPage() {
                     left={4}
                     top="50%"
                     transform="translateY(-50%)"
-                    color={subTextColor}
+                    color={textColor}
                     zIndex={1}
                     pointerEvents="none"
                     display="flex"
@@ -94,15 +98,15 @@ export default function AuthPage() {
                 <Input
                   type="text"
                   placeholder="Имя пользователя"
-                  border="1px solid"
-                  borderColor={inputBorder}
-                  borderWidth="1px"
+                  border={"None"}
+                  borderBottom={"2px solid"}
+                  borderColor={textColor}
                   _focus={{
-                    borderColor: inputFocusBorder,
+                    borderColor: "inherit",
                     outline: "none",
                   }}
-                  size="lg"
-                  borderRadius="lg"
+                  borderRadius={0}
+                  size={"lg"}
                   pl={10}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -126,7 +130,7 @@ export default function AuthPage() {
                     left={4}
                     top="50%"
                     transform="translateY(-50%)"
-                    color={subTextColor}
+                    color={textColor}
                     zIndex={1}
                     pointerEvents="none"
                     display="flex"
@@ -140,15 +144,15 @@ export default function AuthPage() {
                   placeholder="Ваш пароль"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  border="1px solid"
-                  borderColor={inputBorder}
-                  borderWidth="1px"
+                  border={"None"}
+                  borderBottom={"2px solid"}
+                  borderColor={textColor}
                   _focus={{
-                    borderColor: inputFocusBorder,
+                    borderColor: "inherit",
                     outline: "none",
                   }}
-                  size="lg"
-                  borderRadius="lg"
+                  borderRadius={0}
+                  size={"lg"}
                   pl={10}
                 />
               </Box>

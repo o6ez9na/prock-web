@@ -1,5 +1,5 @@
 import { Flex, Box } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { useColorModeValue } from "../components/ui/color-mode";
 import {
@@ -14,6 +14,13 @@ import CustomTooltip from "../components/ui/custom-tooltip";
 
 export default function Nav() {
   const borderColor = useColorModeValue("#09090b", "white");
+  const location = useLocation(); // Получаем текущий путь
+
+  const checkActive = (path) => {
+    return (
+      location.pathname === path || location.pathname.startsWith(path + "/")
+    );
+  };
 
   return (
     <Flex position="fixed" bottom="0" left="50%" transform="translateX(-50%)">
@@ -21,7 +28,7 @@ export default function Nav() {
         h="60px"
         w="auto"
         p="20px"
-        borderRadius={"10px 10px 0 0"}
+        borderRadius={"10px 10px 10px 10px"}
         justifyContent={"center"}
         alignItems={"center"}
         direction={"row"}
@@ -29,8 +36,11 @@ export default function Nav() {
         border="2px solid"
         borderColor={borderColor}
         borderBottomWidth={0}
+        // borderLeftWidth={0}
+        // borderRightWidth={0}
       >
         <CustomTooltip
+          isActive={checkActive("/dashboard")}
           header={"Дашборд"}
           body={
             "Здесь вы сможете увидеть потребляемый трафик, график нагрузки и многое другое."
@@ -44,6 +54,7 @@ export default function Nav() {
         <Box h="30px" w="3px" bg={borderColor} borderRadius={"10px"} />
 
         <CustomTooltip
+          isActive={checkActive("/users")}
           header="Пользователи"
           body="В данной группе находится список пользователей и их настройки."
         >
@@ -51,7 +62,9 @@ export default function Nav() {
             <TbUsersGroup size="30px" />
           </Link>
         </CustomTooltip>
+
         <CustomTooltip
+          isActive={checkActive("/squads")}
           header="Сквады"
           body="В данной разделе находятся настройки внутренних сквадов. С
                 помощью них можно выделять группы пользователей и управлять
@@ -63,6 +76,7 @@ export default function Nav() {
         </CustomTooltip>
 
         <CustomTooltip
+          isActive={checkActive("/nodes")}
           header="Ноды"
           body="В данной разделе находятся настройки серверов и их конфиги."
         >
@@ -70,7 +84,9 @@ export default function Nav() {
             <TbSitemap size={"30px"} />
           </Link>
         </CustomTooltip>
+
         <CustomTooltip
+          isActive={checkActive("/routing")}
           header={"Маршрутизация"}
           body={
             "В данном разделе вы можете настроить параметры маршрутизации по своему вкусу и применять их в связке с различными конфигурациями серверов"

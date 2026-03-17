@@ -2,7 +2,12 @@ import { Tooltip } from "@chakra-ui/tooltip";
 import { Box } from "@chakra-ui/react";
 import { useColorModeValue } from "../ui/color-mode";
 
-export default function CustomTooltip({ children, header, body }) {
+export default function CustomTooltip({
+  children,
+  header,
+  body,
+  isActive = false,
+}) {
   const tooltipBG = useColorModeValue("white", "#09090b");
   const dotColor = useColorModeValue("#09090b", "white");
 
@@ -39,12 +44,12 @@ export default function CustomTooltip({ children, header, body }) {
         <Box
           position="absolute"
           bottom="-10px"
-          w="6px"
+          w="12px"
           h="6px"
-          borderRadius="100%"
+          borderRadius="lg"
           bg={dotColor}
           transition="opacity 0.2s, transform 0.2s"
-          _groupHover={{ opacity: 0 }}
+          opacity={isActive ? 1 : 0}
         />
       </Box>
     </Tooltip>

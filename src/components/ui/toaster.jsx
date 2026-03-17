@@ -14,6 +14,10 @@ import { useColorModeValue } from "../ui/color-mode";
 export const toaster = createToaster({
   placement: "bottom-end",
   pauseOnPageIdle: true,
+  transition: {
+    enter: { animation: "slideIn 0.3s ease-out" },
+    exit: { animation: "slideOut 0.2s ease-in forwards" },
+  },
 });
 
 const toastColors = {
@@ -41,7 +45,7 @@ export const Toaster = () => {
             <Toast.Root
               width={{ md: "sm" }}
               bg={bgColor}
-              color={textColor} // ✅ Применяем цвет текста
+              color={textColor}
               borderWidth="3px"
               borderColor={colors.borderColor}
             >
