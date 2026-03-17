@@ -1,4 +1,3 @@
-// hooks/useMetricData.js
 import { useState, useEffect } from "react";
 
 export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {

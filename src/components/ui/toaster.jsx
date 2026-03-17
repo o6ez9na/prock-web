@@ -35,8 +35,6 @@ export const Toaster = () => {
     <Portal>
       <ChakraToaster toaster={toaster} insetInline={{ mdDown: "4" }}>
         {(toast) => {
-          // ✅ Получаем цвета ВНУТРИ колбэка, где доступен `toast`
-          // ✅ Убрали TypeScript-синтаксис для совместимости с .jsx
           const colors = toastColors[toast.type] || toastColors.info;
 
           return (
