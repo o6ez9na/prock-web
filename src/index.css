@@ -26,12 +26,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
 .ibm-plex-mono-thin {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 100;
   font-style: normal;
 }
-
 
 .ibm-plex-mono-extralight {
   font-family: "IBM Plex Mono", monospace;

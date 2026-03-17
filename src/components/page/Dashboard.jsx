@@ -15,6 +15,10 @@ export default function Dashboard() {
       headerText: "Использование CPU",
       content: "171 %",
     },
+    {
+      headerText: "IOPS",
+      content: "0.39 K/s",
+    },
   ];
   return (
     <Flex w={"100vw"} h={"100vh"} p={"40px"} gap={"20px"} direction={"column"}>

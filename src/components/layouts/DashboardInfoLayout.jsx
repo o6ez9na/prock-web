@@ -6,6 +6,7 @@ import UpdateMenu from "../ui/update-menu";
 export default function DashboardInfoLayout({ blockHeader, data }) {
   const borderColor = useColorModeValue("#09090b", "white");
   const bg = useColorModeValue("white", "#09090b");
+
   return (
     <Flex direction="column">
       <Box fontSize={"1.4rem"} mb={"-0.5rem"}>
