@@ -14,7 +14,7 @@ import CustomTooltip from "../components/ui/custom-tooltip";
 
 export default function Nav() {
   const borderColor = useColorModeValue("#09090b", "white");
-  const location = useLocation(); // Получаем текущий путь
+  const location = useLocation();
 
   const checkActive = (path) => {
     return (
@@ -36,8 +36,6 @@ export default function Nav() {
         border="2px solid"
         borderColor={borderColor}
         borderBottomWidth={0}
-        // borderLeftWidth={0}
-        // borderRightWidth={0}
       >
         <CustomTooltip
           isActive={checkActive("/dashboard")}

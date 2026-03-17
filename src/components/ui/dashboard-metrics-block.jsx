@@ -6,7 +6,7 @@ import UpdateMenu from "../ui/update-menu";
 export default function DashboardMetricBlock({
   title,
   data,
-  isLoading, // <-- новый проп
+  isLoading,
   borderColor,
   bg,
   intervalSec,
@@ -29,7 +29,6 @@ export default function DashboardMetricBlock({
         />
       }
     >
-      {/* Лоадер поверх контента */}
       {isLoading && (
         <Flex
           position="absolute"

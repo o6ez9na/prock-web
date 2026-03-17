@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // <-- новое состояние
+  const [isLoading, setIsLoading] = useState(true);
 
   const [intervalSec, setIntervalSec] = useState(() => {
     return Number(localStorage.getItem(storageKey) || defaultSeconds);
@@ -16,7 +16,7 @@ export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {
       } catch (e) {
         console.error(`Error fetching ${storageKey}:`, e);
       } finally {
-        setIsLoading(false); // <-- загружено (успех или ошибка)
+        setIsLoading(false);
       }
     };
 
