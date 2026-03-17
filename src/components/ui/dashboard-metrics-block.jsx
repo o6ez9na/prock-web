@@ -1,9 +1,12 @@
+// components/DashboardMetricBlock.jsx
+import { Flex, Spinner, Box } from "@chakra-ui/react";
 import DashboardInfoLayout from "../layouts/DashboardInfoLayout";
-import UpdateMenu from "./update-menu";
+import UpdateMenu from "../ui/update-menu";
 
 export default function DashboardMetricBlock({
   title,
   data,
+  isLoading, // <-- новый проп
   borderColor,
   bg,
   intervalSec,
@@ -25,6 +28,30 @@ export default function DashboardMetricBlock({
           onChange={onIntervalChange}
         />
       }
-    />
+    >
+      {/* Лоадер поверх контента */}
+      {isLoading && (
+        <Flex
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg={bg}
+          opacity={0.8}
+          justifyContent="center"
+          alignItems="center"
+          zIndex={10}
+        >
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="black"
+            size="xl"
+          />
+        </Flex>
+      )}
+    </DashboardInfoLayout>
   );
 }

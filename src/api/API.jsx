@@ -38,8 +38,8 @@ API.interceptors.response.use(
         const response = await API.post("/auth/refresh/", {
           refresh_token: localStorage.getItem("refreshToken"),
         });
-        localStorage.setItem("access_token", response.data.access);
-        localStorage.setItem("refresh_token", response.data.access);
+        localStorage.setItem("authToken", response.data.access_token);
+        localStorage.setItem("refreshToken", response.data.refresh_token);
 
         originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
         return API(originalRequest);

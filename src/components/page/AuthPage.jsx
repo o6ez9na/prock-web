@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
 
 import APIService from "../../api/API";
-import API from "../../api/API";
 
 export default function AuthPage() {
   const navigate = useNavigate();

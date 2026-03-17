@@ -1,7 +1,9 @@
+// hooks/useMetricData.js
 import { useState, useEffect } from "react";
 
 export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // <-- новое состояние
 
   const [intervalSec, setIntervalSec] = useState(() => {
     return Number(localStorage.getItem(storageKey) || defaultSeconds);
@@ -14,6 +16,8 @@ export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {
         setData(response.data);
       } catch (e) {
         console.error(`Error fetching ${storageKey}:`, e);
+      } finally {
+        setIsLoading(false); // <-- загружено (успех или ошибка)
       }
     };
 
@@ -29,5 +33,5 @@ export function useMetricData(apiMethod, storageKey, defaultSeconds = 5) {
     localStorage.setItem(storageKey, newSeconds);
   };
 
-  return { data, intervalSec, updateInterval };
+  return { data, isLoading, intervalSec, updateInterval };
 }

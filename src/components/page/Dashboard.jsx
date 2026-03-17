@@ -1,52 +1,64 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
 import { useColorModeValue } from "../ui/color-mode";
-import APIService from "../../api/API";
 import { useMetricData } from "../../hooks/useMetricData";
 import DashboardMetricBlock from "../ui/dashboard-metrics-block";
-
-const DASHBOARD_CONFIG = [
-  {
-    id: "stats",
-    title: "PRock usage",
-    apiMethod: APIService.getStats,
-    storageKey: "dashboardUpdateTime",
-    defaultTime: 5,
-  },
-  {
-    id: "network",
-    title: "Network usage",
-    apiMethod: APIService.getNetwork,
-    storageKey: "dashboardNetworkTime",
-    defaultTime: 5,
-  },
-];
+import APIService from "../../api/API";
 
 export default function Dashboard() {
   const borderColor = useColorModeValue("#09090b", "white");
   const bg = useColorModeValue("white", "#09090b");
+  const loaderColor = useColorModeValue("#09090b", "white");
+
+  const statsData = useMetricData(
+    APIService.getStats,
+    "dashboardUpdateTime",
+    5,
+  );
+  const networkData = useMetricData(
+    APIService.getNetwork,
+    "dashboardNetworkTime",
+    5,
+  );
+
+  const blocks = [
+    {
+      id: "stats",
+      title: "PRock usage",
+      storageKey: "dashboardUpdateTime",
+      ...statsData,
+    },
+    {
+      id: "network",
+      title: "Network usage",
+      storageKey: "dashboardNetworkTime",
+      ...networkData,
+    },
+  ];
+
+  const isAnyLoading = statsData.isLoading || networkData.isLoading;
+  if (isAnyLoading) {
+    return (
+      <Flex w={"100vw"} h={"100vh"} justifyContent="center" alignItems="center">
+        <Spinner size="xl" color={loaderColor} />
+      </Flex>
+    );
+  }
 
   return (
     <Flex w={"100vw"} h={"100vh"} p={"40px"} gap={"20px"} direction={"column"}>
-      {DASHBOARD_CONFIG.map((config) => {
-        const { data, intervalSec, updateInterval } = useMetricData(
-          config.apiMethod,
-          config.storageKey,
-          config.defaultTime,
-        );
-
-        return (
-          <DashboardMetricBlock
-            key={config.id}
-            title={config.title}
-            data={data}
-            borderColor={borderColor}
-            bg={bg}
-            intervalSec={intervalSec}
-            onIntervalChange={updateInterval}
-            storageKey={config.storageKey}
-          />
-        );
-      })}
+      {blocks.map((block) => (
+        <DashboardMetricBlock
+          key={block.id}
+          title={block.title}
+          data={block.data}
+          isLoading={block.isLoading}
+          borderColor={borderColor}
+          bg={bg}
+          intervalSec={block.intervalSec}
+          onIntervalChange={block.updateInterval}
+          storageKey={block.storageKey}
+        />
+      ))}
     </Flex>
   );
 }
