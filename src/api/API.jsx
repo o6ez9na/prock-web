@@ -20,12 +20,12 @@ API.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // Не трогаем /auth/sign-in и /auth/sign-up
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
@@ -36,9 +36,10 @@ API.interceptors.response.use(
 
       try {
         const response = await API.post("/auth/refresh/", {
-          refresh: localStorage.getItem("refreshToken"),
+          refresh_token: localStorage.getItem("refreshToken"),
         });
-        localStorage.setItem("authToken", response.data.access);
+        localStorage.setItem("access_token", response.data.access);
+        localStorage.setItem("refresh_token", response.data.access);
 
         originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
         return API(originalRequest);
@@ -80,6 +81,18 @@ class APIService {
         });
       }
     }
+  }
+
+  setAuthToken(token) {
+    API.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+
+  async getStats() {
+    return await API.get("/system/stats");
+  }
+
+  async getNetwork() {
+    return await API.get("/system/network");
   }
 
   async getMe(config = {}) {

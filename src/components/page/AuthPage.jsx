@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
 
 import APIService from "../../api/API";
+import API from "../../api/API";
 
 export default function AuthPage() {
   const navigate = useNavigate();
@@ -43,6 +44,9 @@ export default function AuthPage() {
         password,
       });
       if (response.status == 200) {
+        localStorage.setItem("authToken", response.data.access_token);
+        localStorage.setItem("refreshToken", response.data.refresh_token);
+        APIService.setAuthToken(response.data.access_token);
         navigate("/dashboard");
       }
     } catch (error) {
