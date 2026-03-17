@@ -41,10 +41,10 @@ export default function CustomTooltip({ children, header, body }) {
           bottom="-10px"
           w="6px"
           h="6px"
-          borderRadius="full"
+          borderRadius="100%"
           bg={dotColor}
           transition="opacity 0.2s, transform 0.2s"
-          _groupHover={{ opacity: 0, transform: "scale(0.6)" }}
+          _groupHover={{ opacity: 0 }}
         />
       </Box>
     </Tooltip>
