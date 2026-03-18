@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AuthPage from "../components/page/AuthPage";
 import Dashboard from "../components/page/Dashboard";
 import UsersPage from "../components/page/UsersPage";
@@ -11,7 +11,7 @@ import AppLayout from "../components/layouts/AppLayout";
 export default function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<div>Home</div>} />
+      <Route path="/" element={<Navigate to="/auth" replace />} />
       <Route path="/auth" element={<AuthPage />} />
 
       <Route element={<AppLayout />}>
