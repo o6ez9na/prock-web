@@ -2,7 +2,7 @@ import axios from "axios";
 import { toaster } from "../components/ui/toaster";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_HOST,
+  baseURL: import.meta.env.VITE_API_HOST || "http://localhost:8081",
   headers: {
     "Content-Type": "application/json",
   },
