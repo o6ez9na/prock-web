@@ -23,7 +23,7 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const pageBg = useColorModeValue("gray.50", "black");
+  const pageBg = useColorModeValue("gray.50", "#010b13");
   const textColor = useColorModeValue("gray.800", "white");
 
   const buttonBg = useColorModeValue("black", "white");

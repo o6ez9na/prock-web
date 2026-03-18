@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Grid, Flex } from "@chakra-ui/react";
 import InfoChunk from "../ui/info-chunk";
 
 export default function DashboardInfoLayout({
@@ -9,18 +9,30 @@ export default function DashboardInfoLayout({
   child,
 }) {
   return (
-    <Flex direction="column">
+    <Flex direction={"column"} mb={"20px"}>
       <Box fontSize={"1.4rem"} mb={"-0.5rem"}>
         {blockHeader} {child}
       </Box>
+
       <Box
         h="2px"
         w="100%"
         bg={borderColor}
-        borderRadius={"10px"}
-        my={"0.8rem"}
+        borderRadius="full"
+        mt="0.8rem"
+        mb="0.8rem"
       />
-      <Flex gap={"1.2rem"} w={"100%"}>
+
+      <Grid
+        templateColumns={{
+          base: "1fr",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+        }}
+        gap="1.2rem"
+        w="100%"
+      >
         {data.map((item, index) => (
           <InfoChunk
             key={index}
@@ -30,7 +42,7 @@ export default function DashboardInfoLayout({
             bg={bg}
           />
         ))}
-      </Flex>
+      </Grid>
     </Flex>
   );
 }

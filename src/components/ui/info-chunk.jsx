@@ -27,6 +27,8 @@ export default function InfoChunk({ headerText, content, borderColor, bg }) {
     <Flex
       flex="1"
       minH={"120px"}
+      w={"auto"}
+      minW={"270px"}
       bg={bg}
       border="2px solid"
       borderColor={borderColor}
@@ -56,7 +58,7 @@ export default function InfoChunk({ headerText, content, borderColor, bg }) {
           {headerText}
         </Text>
 
-        <Box h="2px" w={"100%"} bg={borderColor} />
+        <Box h="2px" w={"auto"} bg={borderColor} />
 
         <Text fontSize="2xl" fontWeight="bold" lineHeight="shorter">
           {content}

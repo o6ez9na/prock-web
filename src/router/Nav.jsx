@@ -13,6 +13,7 @@ import {
 import CustomTooltip from "../components/ui/custom-tooltip";
 
 export default function Nav() {
+  const pageBg = useColorModeValue("gray.50", "#010b13");
   const borderColor = useColorModeValue("#09090b", "white");
   const location = useLocation();
 
@@ -23,7 +24,14 @@ export default function Nav() {
   };
 
   return (
-    <Flex position="fixed" bottom="0" left="50%" transform="translateX(-50%)">
+    <Flex
+      position="fixed"
+      bottom="0"
+      left="50%"
+      transform="translateX(-50%)"
+      bg={pageBg}
+      borderRadius={"10px"}
+    >
       <Flex
         h="60px"
         w="auto"
