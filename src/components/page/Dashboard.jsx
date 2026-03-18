@@ -6,7 +6,7 @@ import APIService from "../../api/API";
 
 export default function Dashboard() {
   const borderColor = useColorModeValue("#09090b", "white");
-  const bg = useColorModeValue("white", "#09090b");
+  const bg = useColorModeValue("white", "#010b13");
   const loaderColor = useColorModeValue("#09090b", "white");
 
   const statsData = useMetricData(
@@ -38,14 +38,20 @@ export default function Dashboard() {
   const isAnyLoading = statsData.isLoading || networkData.isLoading;
   if (isAnyLoading) {
     return (
-      <Flex w={"100vw"} h={"100vh"} justifyContent="center" alignItems="center">
+      <Flex
+        w={"100vw"}
+        h={"100vh"}
+        justifyContent="center"
+        alignItems="center"
+        bg={bg}
+      >
         <Spinner size="xl" color={loaderColor} />
       </Flex>
     );
   }
 
   return (
-    <Flex w={"100vw"} h={"100vh"} p={"40px"} gap={"20px"} direction={"column"}>
+    <Flex w={"100vw"} h={"100vh"} p={"40px"} direction={"column"} bg={bg}>
       {blocks.map((block) => (
         <DashboardMetricBlock
           key={block.id}
