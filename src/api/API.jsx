@@ -30,7 +30,8 @@ API.interceptors.response.use(
       error.response?.status === 401 &&
       !originalRequest._retry &&
       !originalRequest.url.includes("/auth/sign-in") &&
-      !originalRequest.url.includes("/auth/sign-up")
+      !originalRequest.url.includes("/auth/sign-up") &&
+      !originalRequest.url.includes("/auth/me/")
     ) {
       originalRequest._retry = true;
 
@@ -46,6 +47,9 @@ API.interceptors.response.use(
       } catch (err) {
         console.error("Ошибка обновления токена:", err);
         localStorage.removeItem("authToken");
+
+        window.location.href = "/auth";
+
         return Promise.reject(err);
       }
     }
@@ -95,8 +99,8 @@ class APIService {
     return await API.get("/system/network");
   }
 
-  async getMe(config = {}) {
-    return await API.get("/users/me/", config);
+  async getMe() {
+    return await API.get("/auth/me/");
   }
 }
 

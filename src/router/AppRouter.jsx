@@ -5,13 +5,13 @@ import UsersPage from "../components/page/UsersPage";
 import SquadsPage from "../components/page/SquadsPage";
 import NodesPage from "../components/page/NodesPage";
 import RoutingPage from "../components/page/RoutingPage";
-
+import HomePage from "../components/page/HomePage";
 import AppLayout from "../components/layouts/AppLayout";
 
 export default function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/auth" replace />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<AuthPage />} />
 
       <Route element={<AppLayout />}>
